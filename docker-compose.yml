@@ -5,12 +5,12 @@ services:
     build: 
       context: ./backend
       dockerfile: Dockerfile
+    container_name: fastapi-backend
     ports:
       - "8000:8000"
+    restart: always
     volumes:
       - ./backend:/app
-    environment:
-      - PYTHONUNBUFFERED=1
     networks:
       - app-network
 
@@ -18,13 +18,14 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: "http://54.226.141.69:8000"
+    container_name: react-frontend
     ports:
-      - "5173:5173"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - "80:80"
     depends_on:
       - backend
+    restart: always
     networks:
       - app-network
 

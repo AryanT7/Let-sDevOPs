@@ -7,11 +7,12 @@ function App() {
   const fetchMessage = async () => {
     try {
       setLoading(true)
-      const response = await fetch('http://localhost:8000/api/hello')
-      const data = await response.json()
+      const base = import.meta.env.VITE_API_BASE_URL || ''  // <-- read from Vite env
+      const res = await fetch(`${base}/api/hello`)
+      const data = await res.json()
       setMessage(data.message)
-    } catch (error) {
-      console.error('Error fetching message:', error)
+    } catch (err) {
+      console.error('Error fetching message:', err)
       setMessage('Error fetching message')
     } finally {
       setLoading(false)
