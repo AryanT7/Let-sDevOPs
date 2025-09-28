@@ -6,11 +6,13 @@ app = FastAPI(title="FastAPI Backend")
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://54.226.141.69"],  # React dev servers
+    allow_origins=["*"],  # React dev servers
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# http://54.226.141.69
 
 @app.get("/api/hello")
 async def hello():
